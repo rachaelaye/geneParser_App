@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Gene Parser</title>
+
+    <!-- Custom fonts for this template-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="jumbotron text-center">
+            <h1>Gene Parser</h1>
+    </div>
+    <div class="container">
+            <h3>
+                Paste in your query gene list below. Accepted identifiers are the Ensemble Gene ID or
+            the Ensemble Transcript ID.
+            </h3>
+            <br />
+            <h2>Insert Gene List</h2>
+             <form action="" method="post" id="form1" enctype="multipart/form-data">
+                 {% csrf_token %}
+                 {{ form.input_textarea }}
+                 <button type="submit" class="btn btn-primary">Submit</button>
+                 <button type="reset" class="btn btn-danger" value="Reset">Clear</button>
+                 <br /><br /><br />
+            </form>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Upload Time</th>
+                        <th scope="'col">Gene Symbol</th>
+                        <th scope="col">Download Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for upload in all_uploads %}
+                        <tr {{ upload }}></td>
+                        <td>
+                            {{ upload.time_of_upload }}
+                        </td>
+                        <td>
+                            {{upload.uploaded_genes.all}}
+                        </td>
+                        <td><a href="{% url 'export_to_csv' id=upload.id %}">Download CSV File</a></td>
+                    {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>
