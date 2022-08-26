@@ -9,9 +9,6 @@ import csv
 
 
 def get_input(request):
-    print('The request method is:', request.method)
-    print('The POST data is:', request.POST)
-    print('The GET data is:', request.GET)
     gene_names = None
     if request.method == 'POST':
         form = GeneInputForm(request.POST, request.FILES)
